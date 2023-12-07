@@ -9,10 +9,6 @@ class Category(models.Model):
     slug = models.SlugField(max_length=200,
                             unique=True)
     
-    def get_absolute_url(self):
-        return reverse('shop:product_list_by_category',
-                       args=[self.slug])
-    
     #В Meta-классе модели Product определен многопольный индекс по полям id и slug.
     class Meta:
         ordering = ['name']
@@ -22,6 +18,10 @@ class Category(models.Model):
         
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('market_app:product_list_by_category',
+                       args=[self.slug])
 
 #Модель товара
 class Product(models.Model):
@@ -47,10 +47,6 @@ class Product(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     #Время обновления товара
     updated = models.DateTimeField(auto_now=True)
-
-    def get_absolute_url(self):
-        return reverse('shop:product_list_by_category',
-                       args=[self.slug])
     
     class Meta:
         ordering = ['name']
@@ -59,5 +55,9 @@ class Product(models.Model):
         models.Index(fields=['name']),
         models.Index(fields=['-created']),]
 
-def __str__(self):
-    return self.name
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+        return reverse('market_app:product_detail',
+                       args=[self.id, self.slug])

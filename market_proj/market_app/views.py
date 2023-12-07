@@ -10,7 +10,7 @@ def product_list(request, category_slug=None):
                                      slug=category_slug)
         products = products.filter(category=category)
     return render(request,
-                    'shop/product/list.html',
+                    'market_app/product/list.html',
                     {'category': category,
                     'categories': categories,
                     'products': products})
@@ -21,5 +21,5 @@ def product_detail(request, id, slug):
                                 slug=slug,
                                 available=True)
     return render(request,
-                  'shop/product/detail.html',
+                  'market_app/product/detail.html',
                   {'product': product})
